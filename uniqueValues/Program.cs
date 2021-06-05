@@ -5,72 +5,60 @@ using System.Linq;
 namespace uniqueValues
 {
     class Program
-    {
-        
-        public static int[] toConnect(int[] x, int[] y){
+    {    public static int[] uniqNumbers(int[] a, int[] b){          
+            int?[] uniqNum = new int?[a.Length];
             int counter = 0;
-            int[] r = new int[x.Length+y.Length];
-            for (int i = 0; i < x.Length; i++)
-            {
-                r[counter++] = x[i];
+            for (int i = 0; i < a.Length; i++){              
+                if (isExist(b, a[i]) == false){
+                    uniqNum[counter++] = a[i];
+                }
             }
-            for (int i = 0; i< y.Length; i++)
-            {
-                r[counter++] = y[i];
-            }
-             return r;
+            int[] clearArr = cleanNull(uniqNum, counter);
+            return clearArr;
         }
-        public static bool  isExist(int[]b,int x){
-           
-            for (int k = 0; k < b.Length; k++){
-                 int   y = b[k];
-                if (x == y) return true;
-               }
+        public static bool isExist(int[] b, int x){
+            for (int i = 0; i < b.Length; i++){               
+                if (x == b[i]) return true;
+            }
             return false;
         }
-       
-        public static int[] uniqueFromFirstArr(int[] a, int[] b){          
-            int?[] u = new int?[a.Length];
-
+        public static int[] cleanNull(int?[] a, int len){
+            int[] clearArr = new int[len];
             int counter = 0;
+            for (int i = 0; i < len; i++){
+                if (a[i] != null){
+                    clearArr[counter++] = a[i].Value;
+                }
+            }
+            return clearArr;
+        }
+        public static int[] toConnect(int[] a, int[] b){
+            int counter = 0;
+            int[] pickedArr = new int[a.Length+b.Length];
             for (int i = 0; i < a.Length; i++){
-                int x = a[i];
-                if (isExist(b, x) == false){
-                    u[counter++] = x;
-                }
+                pickedArr[counter++] = a[i];
             }
-
-
-            int[] p = new int[counter];
-            int count1 = 0;
-            for (int i = 0; i <counter; i++)
-            {
-                if (u[i] != null) 
-                {
-                    p[count1++] = u[i].Value;
-                }
+            for (int i = 0; i< b.Length; i++){
+                pickedArr[counter++] = b[i];
             }
-            return p;
+            return pickedArr;
         }
-        public static int[] uniqueNumList(int[] a, int[] b)
-        {
-            var o = uniqueFromFirstArr(a, b);
-            var s = uniqueFromFirstArr(b, a);
-            var r = toConnect(o, s);
-            return r;
+        public static int[] uniqEndList(int[] a, int[] b){
+            var uniqNumFirstArr = uniqNumbers(a, b);
+            var uniqNumSecArr = uniqNumbers(b, a);
+            var collectedArr = toConnect(uniqNumFirstArr, uniqNumSecArr);
+            return collectedArr;
         }
-        static void Main(string[] args){
-            //int[] arr_first = { 1, 2, 3 ,4,9,10};
-            //  int[] arr_first = { 1, 2, 3, 4, 9, -2 };
-            //int[] arr_first = { 1 };
-            //  int[] arr_first = { 0,0,0};
-           int[] arr_first = { 1, 2, 3,5,9,10 };
-            int[] arr_second = { 1, 5, 3,6};
-          var r=uniqueNumList(arr_first, arr_second);
-
-            foreach (int item in r){
-                Console.WriteLine(item);
+        static void showResult(int[] a, int[] b){
+            var unicNum  = uniqEndList(a, b);
+            foreach (int item in unicNum){
+                Console.Write(item);
             }
+        }
+        static void Main(string[] args){           
+            int[] arrA = {1, 2, 3, 5, 9, 10};
+            int[] arrB = {1, 5, 3, 6};
+            showResult(arrA, arrB);
         }
     }
 }
