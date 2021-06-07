@@ -2,27 +2,68 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace uniqueValues
+namespace UniqueValues
 {
-    class Program
-    {    public static int[] uniqNumbers(int[] a, int[] b){          
+   public class  Program
+    {    public static int[] UniqNumbers(int[] a, int[] b){
+          DuplicatClean(a);
+          
+
             int?[] uniqNum = new int?[a.Length];
             int counter = 0;
             for (int i = 0; i < a.Length; i++){              
-                if (isExist(b, a[i]) == false){
+                if (IsExist(b, a[i]) == false){
                     uniqNum[counter++] = a[i];
                 }
             }
-            int[] clearArr = cleanNull(uniqNum, counter);
+            int[] clearArr = CleanNull(uniqNum, counter);
             return clearArr;
         }
-        public static bool isExist(int[] b, int x){
+
+
+
+
+        public static int[] DuplicatClean(int[] a) {
+              int?[] unicNum = new int?[5];
+                     int counter = 0;
+            int buf = 0;
+            for (int i = 0; i < a.Length; i++){
+                bool isEsi = true;
+                for (int j = 1; j < a.Length; j++) {
+                    if (a[i] == a[j]) {
+                        isEsi = false;
+                    }
+                    else {
+                        if (isEsi == true) {
+                            buf = a[i];
+                        } else if (buf != a[j]) {
+                            unicNum[counter++] = a[i];
+                        }
+                } 
+                }
+            }
+            int[] cleanArr = CleanNull(unicNum,counter);
+
+            foreach (int item in cleanArr){
+
+                Console.Write(item);
+                Console.WriteLine();
+            }
+            return cleanArr;
+        }
+
+
+
+
+
+
+        public static bool IsExist(int[] b, int x){
             for (int i = 0; i < b.Length; i++){               
                 if (x == b[i]) return true;
             }
             return false;
         }
-        public static int[] cleanNull(int?[] a, int len){
+        public static int[] CleanNull(int?[] a, int len){
             int[] clearArr = new int[len];
             int counter = 0;
             for (int i = 0; i < len; i++){
@@ -32,7 +73,7 @@ namespace uniqueValues
             }
             return clearArr;
         }
-        public static int[] toConnect(int[] a, int[] b){
+        public static int[] ToConnect(int[] a, int[] b){
             int counter = 0;
             int[] pickedArr = new int[a.Length+b.Length];
             for (int i = 0; i < a.Length; i++){
@@ -43,22 +84,50 @@ namespace uniqueValues
             }
             return pickedArr;
         }
-        public static int[] uniqEndList(int[] a, int[] b){
-            var uniqNumFirstArr = uniqNumbers(a, b);
-            var uniqNumSecArr = uniqNumbers(b, a);
-            var collectedArr = toConnect(uniqNumFirstArr, uniqNumSecArr);
+        public static int[] UniqEndList(int[] a, int[] b){
+            var uniqNumFirstArr = UniqNumbers(a, b);
+            var uniqNumSecArr = UniqNumbers(b, a);
+            var collectedArr =ToConnect(uniqNumFirstArr, uniqNumSecArr);
             return collectedArr;
         }
-        static void showResult(int[] a, int[] b){
-            var unicNum  = uniqEndList(a, b);
+        static void ShowResult(int[] a, int[] b){
+            var unicNum  = UniqEndList(a, b);
             foreach (int item in unicNum){
                 Console.Write(item);
             }
         }
-        static void Main(string[] args){           
-            int[] arrA = {1, 2, 3, 5, 9, 10};
-            int[] arrB = {1, 5, 3, 6};
-            showResult(arrA, arrB);
+       public static void UniqueValueTests(){           
+            int[] arrC = { 1, 2,3,5,9,7,-10,0,11,1};
+            int[] arrD = { 1, 2, 3, 5, 9, 7, -10, 0, 11, 189 };
+            int[] expected1 = { 189 };
+            int[] actual1 = Program.UniqEndList(arrC, arrD);
+            if (expected1.SequenceEqual(actual1)){
+                Console.WriteLine("True LongArr and NegativeNumber");
+            }
+            else{
+                Console.WriteLine("False LongArr and NegativeNumber");
+            }
+
+            int[] arrA = { 0,0,0};
+            int[] arrB = { 1, 2, 3,0 };
+            int[] expected = {1,2,3 };
+            int[] actual = Program.UniqEndList(arrA, arrB);
+            if (expected.SequenceEqual(actual))
+            {
+                Console.WriteLine("True with '0'");
+            }
+            else
+            {
+                Console.WriteLine("False LongArr and NegativeNumber");
+            }
+
+        }
+        static void Main(string[] args){
+            // int[] arrA = new int[6];
+            int[] arrA = {0, 1, 8, 0};
+            int[] arrB = {9};
+            ShowResult(arrA, arrB);
+          //  UniqueValueTests();
         }
     }
 }
