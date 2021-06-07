@@ -6,8 +6,14 @@ namespace UniqueValues
 {
    public class  Program
     {    public static int[] UniqNumbers(int[] a, int[] b){
-          DuplicatClean(a);
-          
+            //  DuplicatClean(a);
+             DuplicatNast(a);
+
+           // int r = CountAnUniq(a);
+           
+
+
+
 
             int?[] uniqNum = new int?[a.Length];
             int counter = 0;
@@ -20,43 +26,67 @@ namespace UniqueValues
             return clearArr;
         }
 
+        public static int CountAnUniq(int[] a)
+        {
+            int notUniqueElcount = 0;
+            for (int i = 1; i <a.Length; i++)
+            {
+                for (int k = i-1; k >=0; k--)
+                { if (a[i] == a[k])
+                        notUniqueElcount++;
+                    break;
 
-
-
-        public static int[] DuplicatClean(int[] a) {
-              int?[] unicNum = new int?[5];
-                     int counter = 0;
-            int buf = 0;
-            for (int i = 0; i < a.Length; i++){
-                bool isEsi = true;
-                for (int j = 1; j < a.Length; j++) {
-                    if (a[i] == a[j]) {
-                        isEsi = false;
-                    }
-                    else {
-                        if (isEsi == true) {
-                            buf = a[i];
-                        } else if (buf != a[j]) {
-                            unicNum[counter++] = a[i];
-                        }
-                } 
                 }
             }
-            int[] cleanArr = CleanNull(unicNum,counter);
+            return notUniqueElcount;
+        }
+      
 
-            foreach (int item in cleanArr){
+            public static int[] DuplicatNast(int[] a) {
+            int buf = 0;
+            int[] cleanArr = new int[a.Length];
+            int counter = 0;
+            bool isExist = false;
+           bool isExist2 = false;
+            for (int i = 0; i < a.Length; i++) {
+                isExist = false;
+               
+                for (int k = 0; k < a.Length; k++) {
+
+                    if (i == k) continue;
+                    if (a[i] == a[k]) {
+                        isExist = true;
+                        buf = 0;
+                        break;
+                    }
+                    if (isExist == false) {
+                        buf = a[i];
+                    }
+                    if (isExist2 == true) {
+                        isExist2 = false;
+                        break;
+                    }
+                  
+                } 
+
+                if (isExist == false) { 
+                    cleanArr[counter++] = buf; 
+                   
+                }
+            }
+            
+
+            foreach (int item in cleanArr)
+            {
 
                 Console.Write(item);
                 Console.WriteLine();
             }
             return cleanArr;
+
+
         }
-
-
-
-
-
-
+        
         public static bool IsExist(int[] b, int x){
             for (int i = 0; i < b.Length; i++){               
                 if (x == b[i]) return true;
@@ -124,7 +154,9 @@ namespace UniqueValues
         }
         static void Main(string[] args){
             // int[] arrA = new int[6];
-            int[] arrA = {0, 1, 8, 0};
+            // int[] arrA = {1,  4, 4};
+            int[] arrA = { 1, 1, 3 ,1};
+           //int[] arrA = { 1, 2,3,1 };
             int[] arrB = {9};
             ShowResult(arrA, arrB);
           //  UniqueValueTests();
