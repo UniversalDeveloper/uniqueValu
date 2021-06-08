@@ -15,7 +15,7 @@ namespace UniqValueTests
             int[] arrA = { 1, 2 };
             int[] arrB = { 1, 5 };
             int[] expected = { 2, 5 };          
-            int[] actual = Program.uniqEndList(arrA, arrB);            
+            int[] actual = Program.UniqEndList(arrA, arrB);            
             CollectionAssert.AreEqual(expected, actual);
         }
         [Fact]
@@ -23,7 +23,7 @@ namespace UniqValueTests
             int[] arrA = { 0, 0 };
             int[] arrB = { 1, 5 };
             int[] expected = { 0, 0, 1, 5 };
-            int[] actual = Program.uniqEndList(arrA, arrB);          
+            int[] actual = Program.UniqEndList(arrA, arrB);          
             CollectionAssert.AreEqual(expected, actual);
         }
         [Fact]
@@ -32,7 +32,7 @@ namespace UniqValueTests
             int[] arrA = new int[5];
             int[] arrB = { 1, 5 };
             int[] expected = { 0, 0, 1, 5 };
-            int[] actual = Program.uniqEndList(arrA, arrB);
+            int[] actual = Program.UniqEndList(arrA, arrB);
             CollectionAssert.AreEqual(expected, actual);
         }
 

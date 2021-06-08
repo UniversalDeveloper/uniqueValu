@@ -7,14 +7,9 @@ namespace UniqueValues
    public class  Program
     {    public static int[] UniqNumbers(int[] a, int[] b){
             //  DuplicatClean(a);
-             DuplicatNast(a);
+            var test= DuplicatNast(a);
 
-           // int r = CountAnUniq(a);
-           
-
-
-
-
+           // int r = CountAnUniq(a);           
             int?[] uniqNum = new int?[a.Length];
             int counter = 0;
             for (int i = 0; i < a.Length; i++){              
@@ -43,6 +38,8 @@ namespace UniqueValues
       
 
             public static int[] DuplicatNast(int[] a) {
+
+            int?[] arrVithNull = new int?[a.Length];
             int buf = 0;
             int[] cleanArr = new int[a.Length];
             int counter = 0;
@@ -69,20 +66,20 @@ namespace UniqueValues
                   
                 } 
 
-                if (isExist == false) { 
-                    cleanArr[counter++] = buf; 
+                if (isExist == false) {
+                    arrVithNull[counter++] = buf; 
                    
                 }
             }
-            
 
-            foreach (int item in cleanArr)
+            int[] clearArr = CleanNull(arrVithNull, counter);
+            foreach (int item in clearArr)
             {
 
                 Console.Write(item);
                 Console.WriteLine();
             }
-            return cleanArr;
+            return clearArr;
 
 
         }
@@ -154,9 +151,9 @@ namespace UniqueValues
         }
         static void Main(string[] args){
             // int[] arrA = new int[6];
-            // int[] arrA = {1,  4, 4};
-            int[] arrA = { 1, 1, 3 ,1};
-           //int[] arrA = { 1, 2,3,1 };
+             int[] arrA = {1,  4, 4};
+          //  int[] arrA = { 1, 1, 3 ,1};
+          // int[] arrA = { 1, 2,3,1 };
             int[] arrB = {9};
             ShowResult(arrA, arrB);
           //  UniqueValueTests();
