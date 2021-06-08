@@ -18,23 +18,12 @@ namespace UniqueValues
             int[] clearArr = CleanNull(uniqNum, counter);
             return clearArr;
         }
-        public static int CountAnUniq(int[] a){
-            int notUniqueElcount = 0;
-            for (int i = 1; i <a.Length; i++){
-                for (int k = i-1; k >=0; k--){ 
-                    if (a[i] == a[k])
-                        notUniqueElcount++;
-                          break;
-                }
-            }
-            return notUniqueElcount;
-        }
-        public static int[] WithouDuplInArr(int[] a){
+            public static int[] WithouDuplInArr(int[] a){
             int?[] arrVithNull = new int?[a.Length];
             int flag = 0;
             int[] cleanArr = new int[a.Length];
             int counter = 0;
-            bool isExist = false;
+            var isExist = false;
             bool isExist2 = false;
             for (int i = 0; i < a.Length; i++){
                 isExist = false;               
