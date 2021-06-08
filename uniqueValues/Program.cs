@@ -8,13 +8,13 @@ namespace UniqueValues
     {    public static int[] UniqNumbers(int[] a, int[] b){
             //  DuplicatClean(a);
             var test= DuplicatNast(a);
-
-           // int r = CountAnUniq(a);           
-            int?[] uniqNum = new int?[a.Length];
+            var test1 = DuplicatNast(b);
+                     
+            int?[] uniqNum = new int?[10];
             int counter = 0;
-            for (int i = 0; i < a.Length; i++){              
-                if (IsExist(b, a[i]) == false){
-                    uniqNum[counter++] = a[i];
+            for (int i = 0; i < test.Length; i++){              
+                if (IsExist(test1, test[i]) == false){
+                    uniqNum[counter++] = test[i];
                 }
             }
             int[] clearArr = CleanNull(uniqNum, counter);
@@ -154,7 +154,7 @@ namespace UniqueValues
              int[] arrA = {1,  4, 4};
           //  int[] arrA = { 1, 1, 3 ,1};
           // int[] arrA = { 1, 2,3,1 };
-            int[] arrB = {9};
+            int[] arrB = {9,5,9};
             ShowResult(arrA, arrB);
           //  UniqueValueTests();
         }
